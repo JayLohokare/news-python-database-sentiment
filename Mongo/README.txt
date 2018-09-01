@@ -2,7 +2,21 @@ Install CronTab
 sudo apt-get install gnome-schedule
 crontab -e
 
-10 * * * * bash /home/ubuntu/.jupyter/getNews.sh
+*/10 * * * * /home/ubuntu/getNews.sh
+
+chmod +x NAMEOFSH
+
+Add to crantab -e
+MAILTO=jaylohokare@gmail.com
+
+Check results 
+grep CRON /var/log/syslog
+
+//If cron logs have errors -> MTA error
+sudo aptitude install postfix
 
 
-//Assumes chmod -x NAMEOFSH
+//Current timestamp
+date
+
+
