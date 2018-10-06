@@ -16,7 +16,6 @@ from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
-import matplotlib.pyplot as plt
 
 
 domainsFile = 'domains.csv'
