@@ -3,7 +3,7 @@ import requests
 import json
 import random
 from newspaper import Article
-from newsapi.newsapi_client import NewsApiClient
+from newsapi import NewsApiClient
 import datetime
 from pymongo import MongoClient
 
@@ -16,11 +16,12 @@ from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
+import matplotlib.pyplot as plt
 
 
 domainsFile = 'domains.csv'
 keysFile = 'newsKeys.csv'
-lookUpTime = 60 #In minutes
+lookUpTime = 1000 #In minutes
 mapNewsToCoin = 'searchTermsForCoin.csv'
 language = 'en'
 vectorFile = 'vector.pkl'
@@ -28,7 +29,7 @@ modelFile = 'svm.pkl'
 
 client = MongoClient('mongodb://root:LCl67MkFgRqV@18.208.219.105', 27017)
 db = client['uptick_news_database']
-collection = db.news3
+collection = db.news2
 
 
 namesList = []
@@ -50,7 +51,6 @@ with open(keysFile) as csv_file:
 
 k = random.randint(0, len(keys)-1)
 key = keys[k]
-key = "445938e7b4214f4988780151868665cc"
 
 
 all_articles = []
@@ -119,8 +119,6 @@ for j in range(len(all_articles)):
     content = content.replace("\n", "")
     content = content.replace("\'", "")
 
-    contentProvided = all_articles[j]['content']
-
     if content != "":
         tempDict = {}
         tempDict['url'] = url
@@ -128,8 +126,7 @@ for j in range(len(all_articles)):
         tempDict['title'] = all_articles[j]['title']
         tempDict['description'] = all_articles[j]['description']
         tempDict['author'] = all_articles[j]['author']
-        tempDict['contentExtracted'] = content
-        tempDict['content'] = contentProvided
+        tempDict['content'] = content
         tempDict['image'] = all_articles[j]['urlToImage']
         tempDict['source'] = all_articles[j]['source']
         tempDict['language'] = language
