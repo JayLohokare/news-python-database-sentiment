@@ -81,9 +81,8 @@ def getArticleContent(url):
 
 
 def getRelatedCoins(content):
-    content = content.split()
     coins = []
-    
+    content = str(content).lower()
     with open(mapNewsToCoin) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
