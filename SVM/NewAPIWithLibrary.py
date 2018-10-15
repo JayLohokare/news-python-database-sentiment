@@ -20,7 +20,7 @@ from sklearn.neighbors import KNeighborsClassifier
 
 domainsFile = 'domains.csv'
 keysFile = 'newsKeys.csv'
-lookUpTime = 60 #In minutes
+lookUpTime = 100 #In minutes
 mapNewsToCoin = 'searchTermsForCoin.csv'
 language = 'en'
 vectorFile = 'vector.pkl'
