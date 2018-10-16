@@ -87,6 +87,8 @@ def getRelatedCoins(content):
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             for i in row:
+				if i == 0:
+					continue
                 i = i.lower()
                 if i in content:
                     coins.append(row[0])
