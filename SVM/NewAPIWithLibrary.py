@@ -28,7 +28,7 @@ modelFile = 'svm.pkl'
 
 client = MongoClient('mongodb://root:LCl67MkFgRqV@18.208.219.105', 27017)
 db = client['uptick_news_database']
-collection = db.news3
+collection = db.news4
 
 
 namesList = []
@@ -81,16 +81,22 @@ def getArticleContent(url):
 
 
 def getRelatedCoins(content):
+    print(content)
     coins = []
-    content = str(content).lower()
+    content = str(content)
     with open(mapNewsToCoin) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            for i in row:
-				if i == 0:
-					continue
-                i = i.lower()
-                if i in content:
+            for i in range(len(row)):
+                print (row[i])
+               
+                if i==0:
+                    if row[i] in content:
+                        print (row[i])
+                        coins.append(row[0]) 
+                rowI = row[i].lower()
+                if rowI in content.lower():
+                    print (rowI)
                     coins.append(row[0])
                     break
     return coins
@@ -138,7 +144,7 @@ for j in range(len(all_articles)):
         tempDict['sentiment'] = getSentiment(content)
         tempDict['relevance'] = 0
 
-        relatedCoins = getRelatedCoins(content)
+        relatedCoins = getRelatedCoins(contentProvided)
 
         for coin in relatedCoins: 
             tempDict['coin'] = coin
