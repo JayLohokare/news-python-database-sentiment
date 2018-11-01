@@ -32,7 +32,7 @@ nlp = spacy.load('en_core_web_sm')
 # In[2]:
 
 #Get time from comman line arguments
-lookUpTime = int(sys.argv[0]) #In minutes
+lookUpTime = int(sys.argv[1]) #In minutes
 
 #All parameters go here
 domainsFile = 'domains.csv'
