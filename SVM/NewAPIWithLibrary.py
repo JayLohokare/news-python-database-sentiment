@@ -12,7 +12,7 @@ from newspaper import Article
 from newsapi.newsapi_client import NewsApiClient
 import datetime
 from pymongo import MongoClient
-
+import sys
 import pickle as p
 import pandas as pd
 from sklearn import metrics
@@ -31,17 +31,16 @@ nlp = spacy.load('en_core_web_sm')
 
 # In[2]:
 
+#Get time from comman line arguments
+lookUpTime = sys.argv[0] #In minutes
 
 #All parameters go here
 domainsFile = 'domains.csv'
 keysFile = 'newsKeys.csv'
-lookUpTime = 60 #In minutes
 mapNewsToCoin = 'searchTermsForCoin.csv'
 language = 'en'
-
 vectorFile = 'vector.pkl'
 modelFile = 'svm.pkl'
-
 client = MongoClient('mongodb://root:LCl67MkFgRqV@18.208.219.105', 27017)
 db = client['uptick_news_database']
 collection = db.news5
@@ -140,70 +139,68 @@ def getSentiment(content):
 
 
 #Making single API call
-searchQuery = "cryptocurrencies X"
-searchQuery = "cryptocurrencies Y"
-searchQuery = "cryptocurrencies Z"
-print (searchQuery)
+# searchQuery = "cryptocurrencies"
+# print (searchQuery)
 
-k = random.randint(0, len(keys)-1)
-key = keys[k]
-newsapi = NewsApiClient(api_key=key)
+# k = random.randint(0, len(keys)-1)
+# key = keys[k]
+# newsapi = NewsApiClient(api_key=key)
 
-temp_articles = newsapi.get_everything(q=searchQuery,
-                                    domains= domainsCommaSeperated,
-                                    language=language,
-                                    from_param=fromTime,
-                                    to=currentTime,
-                                    )
-all_articles = temp_articles['articles']
+# temp_articles = newsapi.get_everything(q=searchQuery,
+#                                     domains= domainsCommaSeperated,
+#                                     language=language,
+#                                     from_param=fromTime,
+#                                     to=currentTime,
+#                                     )
+# all_articles = temp_articles['articles']
 
-for j in range(len(all_articles)):
-    url = all_articles[j]['url']
-    contentExtracted = getArticleContent(url).strip()
-    contentExtracted = contentExtracted.replace("\'", "")
-    contentExtracted = contentExtracted.split()
-    contentExtracted2 = []
-    for i in contentExtracted:
-        if i == "Advertisement" or i == "advertisement":
-            continue
-        else:
-            contentExtracted2.append(i)
+# for j in range(len(all_articles)):
+#     url = all_articles[j]['url']
+#     contentExtracted = getArticleContent(url).strip()
+#     contentExtracted = contentExtracted.replace("\'", "")
+#     contentExtracted = contentExtracted.split()
+#     contentExtracted2 = []
+#     for i in contentExtracted:
+#         if i == "Advertisement" or i == "advertisement":
+#             continue
+#         else:
+#             contentExtracted2.append(i)
 
-    contentExtracted = " ".join(contentExtracted2)
+#     contentExtracted = " ".join(contentExtracted2)
 
-    content = all_articles[j]['content']
+#     content = all_articles[j]['content']
 
-    if content != "":
-        tempDict = {}
-        tempDict['url'] = url
-        tempDict['publishedAt'] = all_articles[j]['publishedAt']
-        tempDict['title'] = all_articles[j]['title']
-        tempDict['description'] = all_articles[j]['description']
-        tempDict['author'] = all_articles[j]['author']
-        tempDict['contentExtracted'] = contentExtracted
-        tempDict['content'] = content
+#     if content != "":
+#         tempDict = {}
+#         tempDict['url'] = url
+#         tempDict['publishedAt'] = all_articles[j]['publishedAt']
+#         tempDict['title'] = all_articles[j]['title']
+#         tempDict['description'] = all_articles[j]['description']
+#         tempDict['author'] = all_articles[j]['author']
+#         tempDict['contentExtracted'] = contentExtracted
+#         tempDict['content'] = content
 
-        tempDict['image'] = all_articles[j]['urlToImage']
-        tempDict['source'] = all_articles[j]['source']
-        tempDict['language'] = language
+#         tempDict['image'] = all_articles[j]['urlToImage']
+#         tempDict['source'] = all_articles[j]['source']
+#         tempDict['language'] = language
 
-        tempDict['sentiment'] = getSentiment(contentExtracted)
-        tempDict['relevance'] = 0
+#         tempDict['sentiment'] = getSentiment(contentExtracted)
+#         tempDict['relevance'] = 0
 
-        relatedCoins = getRelatedCoins(contentExtracted)
+#         relatedCoins = getRelatedCoins(contentExtracted)
 
-        print (contentExtracted)
-        print ("\n")
-        print (url)
-        print ("Related coins " , relatedCoins)
-        print ("\n")
+#         print (contentExtracted)
+#         print ("\n")
+#         print (url)
+#         print ("Related coins " , relatedCoins)
+#         print ("\n")
 
-        for coin in relatedCoins: 
-            tempDict['coin'] = coin
-            searchDict ={}
-            searchDict['url'] = url
-            searchDict['coin'] = coin
-            collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
+#         for coin in relatedCoins: 
+#             tempDict['coin'] = coin
+#             searchDict ={}
+#             searchDict['url'] = url
+#             searchDict['coin'] = coin
+#             collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
 
 
 # In[16]:
