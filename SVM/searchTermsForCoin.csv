@@ -10,31 +10,31 @@ USDT,Tether
 XMR,Monero  
 MIOTA,IOTA  
 TRX,TRON  
-DASH,Bitcoin  
+DASH,
 ETC,Ethereum Classic 
-NEO,Bitcoin  
-XEM,NEM Bitcoin 
+NEO,
+XEM,NEM 
 BNB,Binance Coin 
 XTZ,Tezos  
 ZEC,Zcash  
 OMG,OmiseGO  
 VET,VeChain  
 ZRX,0x  
-QTUM,Bitcoin  
+QTUM,
 LSK,Lisk  
 DCR,Decred  
 BCN,Bytecoin  
 BTG,Bitcoin Gold 
-MKR,Maker Bitcoin 
+MKR,Maker 
 BTS,BitShares  
 DOGE,Dogecoin  
 DGB,DigiByte  
 MOAC,MOAC  
-STEEM,Bitcoin  
+STEEM,
 AE,Aeternity  
 ICX,ICON  
 ZIL,Zilliqa  
-WAVES,Bitcoin  
+WAVES,
 REP,Augur  
 ONT,Ontology  
 BAT,Basic Attention token
@@ -49,7 +49,7 @@ STRAT,Stratis
 MITH,Mithril  
 NPXS,Pundi X 
 HSR,Hshare  
-NANO,Bitcoin  
+NANO,
 KCS,KuCoin Shares 
 SNT,Status  
 KMD,Komodo  
@@ -68,7 +68,7 @@ ELF,aelf
 WTC,Waltonchain  
 LINK,ChainLink  
 XIN,Mixin  
-MCO,MCO Bitcoin 
+MCO,MCO 
 ZEN,ZenCash  
 GXS,GXChain  
 BNT,Bancor  
@@ -78,13 +78,13 @@ MANA,Decentraland
 AION,Aion  
 EMC,Emercoin  
 WAN,Wanchain  
-NXT,Bitcoin  
+NXT,
 ARK,Ark  
 XZC,ZCoin  
 BTCP,Bitcoin Private 
 TUSD,TrueUSD  
 POWR,Power Ledger 
-WAX,Bitcoin  
+WAX,
 DROP,Dropil  
 NULS,Nuls Bitcoin 
 PAY,TenX  
@@ -103,22 +103,22 @@ SMART,SmartCash
 PZM,PRIZM  
 POLY,Polymath  
 BIX,Bibox Token 
-ENG,Enigma Bitcoin 
+ENG,Enigma 
 THETA,Theta Token 
 DIG,Dignity  
 TPAY,TokenPay  
 SYS,Syscoin  
 ELA,Elastos  
 NXS,Nexus Bitcoin 
-LOOM,Loom Network Bitcoin
+LOOM,Loom Network 
 ZCL,Zclassic Bitcoin 
 VERI,Veritaseum  
-GAS,Bitcoin  
+GAS,
 NMC,Namecoin  
 WICC,WaykiChain  
 SUB,Substratum  
 FCT,Factom  
-CVC,Civic Bitcoin 
+CVC,Civic 
 GTO,Gifto  
 STORJ,Storj  
 IGNIS,Ignis  
@@ -137,15 +137,15 @@ HPB,High Performance
 CTXC,Cortex  
 GBYTE,Byteball Bytes 
 AUTO,Cube  
-STORM,Storm Bitcoin 
-SALT,Bitcoin  
+STORM,Storm 
+SALT,
 VTC,Vertcoin  
 ANT,Aragon  
 UNO,Unobtanium  
-PART,Particl Bitcoin 
-BLOCK,Blocknet Bitcoin 
-NEXO,Nexo Bitcoin 
-ETHOS,Bitcoin  
+PART,Particl 
+BLOCK,Blocknet 
+NEXO,Nexo 
+ETHOS,
 NTY,Nexty  
 GTC,Game.com  
 MEDX,MediBloc [ERC20] 
@@ -155,8 +155,8 @@ FSN,Fusion
 SAFEX,Safe Exchange... 
 RLC,iExec RLC 
 FXT,FuzeX  
-BRD,Bread Bitcoin 
-DENT,Dent Bitcoin 
+BRD,Bread 
+DENT,Dent
 DTR,Dynamic Trading 
 ENJ,Enjin Coin 
 KICK,KickCoin  
@@ -165,9 +165,9 @@ BFT,BnkToTheFuture
 BITCNY,bitCNY  
 C20,CRYPTO20  
 TNB,Time New Bank
-EDG,Edgeless Bitcoin 
-UBQ,Ubiq Bitcoin 
-REQ,Request Network Bitcoin
+EDG,Edgeless
+UBQ,Ubiq 
+REQ,Request Network
 UCASH,U.CASH  
 BCI,Bitcoin Interest 
 BCO,BridgeCoin  
@@ -187,8 +187,8 @@ MNX,MinexCoin
 TTU,TaTaTu  
 BOS,BOScoin  
 DDD,Scry.info  
-ION,Bitcoin  
-NEC,Bitcoin  
+ION,
+NEC,
 ACT,Achain  
 LYL,LoyalCoin  
 BTCD,BitcoinDark  
