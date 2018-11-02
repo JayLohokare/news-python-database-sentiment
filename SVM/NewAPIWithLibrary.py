@@ -190,8 +190,9 @@ with open(mapNewsToCoin) as csv_file:
         searchQuery = queryCoinName + " cryptocurrencies"
         print (searchQuery)
         
-        k = random.randint(0, len(keys)-1)
-        key = keys[k]
+        # k = random.randint(0, len(keys)-1)
+        # key = keys[k]
+        key = "445938e7b4214f4988780151868665cc"
         newsapi = NewsApiClient(api_key=key)
 
         try:
@@ -203,7 +204,7 @@ with open(mapNewsToCoin) as csv_file:
                                                 )
         except:
             continue
-            
+
         all_articles = temp_articles['articles']
         print (all_articles)
 
