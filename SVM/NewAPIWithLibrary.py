@@ -59,7 +59,9 @@ vectorFile = 'vector.pkl'
 modelFile = 'svm.pkl'
 client = MongoClient('mongodb://root:LCl67MkFgRqV@18.208.219.105', 27017)
 db = client['uptick_news_database']
-collection = db.news5
+collection = db.news
+collection2 = db.news2
+
 
 
 # In[3]:
