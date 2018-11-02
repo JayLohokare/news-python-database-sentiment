@@ -193,16 +193,19 @@ with open(mapNewsToCoin) as csv_file:
         
         debug (searchQuery)
         
-        k = random.randint(0, len(keys)-1)
-        key = keys[k]
+        key = "445938e7b4214f4988780151868665cc"
         newsapi = NewsApiClient(api_key=key)
 
-        temp_articles = newsapi.get_everything(q=searchQuery,
-                                            domains= domainsCommaSeperated,
-                                            language=language,
-                                            from_param=fromTime,
-                                            to=currentTime,
-                                            )
+        try:
+            temp_articles = newsapi.get_everything(q=searchQuery,
+                                                domains= domainsCommaSeperated,
+                                                language=language,
+                                                from_param=fromTime,
+                                                to=currentTime,
+                                                )
+        except:
+            continue
+            
         all_articles = temp_articles['articles']
         debug (all_articles)
 
