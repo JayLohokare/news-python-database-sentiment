@@ -142,7 +142,7 @@ def getRelatedCoinsUsingDirectMatch(content):
     with open(mapNewsToCoinsAndNames) as csv_file2:
         csv_reader = csv.reader(csv_file2, delimiter=',')
         for row in csv_reader:
-            searchTerms = row[1].split(',')
+            searchTerms = row
             areAllTermsPresent = True
             for searchTerm in searchTerms:
 #                 print(searchTerm)
