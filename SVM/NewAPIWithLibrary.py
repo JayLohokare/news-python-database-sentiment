@@ -135,7 +135,6 @@ def getRelatedCoinsUsingEntity(content):
 
 def getRelatedCoinsUsingDirectMatch(content):
     content = content.strip().lower().split()
-#     print (content)
     coins = []
     
     with open(mapNewsToCoinsAndNames) as csv_file:
@@ -188,25 +187,22 @@ with open(mapNewsToCoin) as csv_file:
         all_articles = []
         queryCoinName = row[0]
         searchQuery = queryCoinName + " cryptocurrencies"
-        print (searchQuery)
         
-        # k = random.randint(0, len(keys)-1)
-        # key = keys[k]
-        key = "445938e7b4214f4988780151868665cc"
+        
+        debug (searchQuery)
+        
+        k = random.randint(0, len(keys)-1)
+        key = keys[k]
         newsapi = NewsApiClient(api_key=key)
 
-        try:
-            temp_articles = newsapi.get_everything(q=searchQuery,
-                                                domains= domainsCommaSeperated,
-                                                language=language,
-                                                from_param=fromTime,
-                                                to=currentTime,
-                                                )
-        except:
-            continue
-
+        temp_articles = newsapi.get_everything(q=searchQuery,
+                                            domains= domainsCommaSeperated,
+                                            language=language,
+                                            from_param=fromTime,
+                                            to=currentTime,
+                                            )
         all_articles = temp_articles['articles']
-        print (all_articles)
+        debug (all_articles)
 
         for j in range(len(all_articles)):
             url = all_articles[j]['url']
@@ -242,21 +238,26 @@ with open(mapNewsToCoin) as csv_file:
                 tempDict['relevance'] = 0
 
                 relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(contentExtracted)
-
-                print (contentExtracted)
-                print ("\n")
-                print (url)
-                print ("Related coins " , relatedCoinsUsingEntity)
-                print ("\n")
-
-#                 if queryCoinName not in relatedCoins:
-#                     relatedCoins.append(queryCoinName)
+                relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(contentExtracted)
+                
+                
+                debug (contentExtracted)
+                debug (url)
+                debug ("Related coins using entity " + str(relatedCoinsUsingEntity))
+                debug ("Related coins using direct string match " + str(relatedCoinsUsingDirectMatch))
+                
+                for coin in relatedCoinsUsingDirectMatch: 
+                    tempDict['coin'] = coin
+                    searchDict ={}
+                    searchDict['url'] = url
+                    searchDict['coin'] = coin
+                    collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
                     
                 for coin in relatedCoinsUsingEntity: 
                     tempDict['coin'] = coin
                     searchDict ={}
                     searchDict['url'] = url
                     searchDict['coin'] = coin
-                    collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
-
-
+                    collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
+                
+                
