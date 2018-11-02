@@ -194,12 +194,16 @@ with open(mapNewsToCoin) as csv_file:
         key = keys[k]
         newsapi = NewsApiClient(api_key=key)
 
-        temp_articles = newsapi.get_everything(q=searchQuery,
-                                            domains= domainsCommaSeperated,
-                                            language=language,
-                                            from_param=fromTime,
-                                            to=currentTime,
-                                            )
+        try:
+            temp_articles = newsapi.get_everything(q=searchQuery,
+                                                domains= domainsCommaSeperated,
+                                                language=language,
+                                                from_param=fromTime,
+                                                to=currentTime,
+                                                )
+        except:
+            continue
+            
         all_articles = temp_articles['articles']
         print (all_articles)
 
