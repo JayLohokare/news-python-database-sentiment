@@ -52,7 +52,7 @@ else:
 domainsFile = 'domains.csv'
 keysFile = 'newsKeys.csv'
 
-mapNewsToCoinsAndNames = 'currencyFullNames.csv'
+mapNewsToCoinsAndNames = 'newsQuerySheet.csv'
 mapNewsToCoin = 'searchTermsForCoin.csv'
 language = 'en'
 vectorFile = 'vector.pkl'
@@ -183,16 +183,22 @@ def getSentiment(content):
 currentTime = datetime.datetime.now().isoformat()
 fromTime = (datetime.datetime.now() - datetime.timedelta(minutes = lookUpTime)).isoformat()
 
-with open(mapNewsToCoin) as csv_file:
+#Making API call per coin
+currentTime = datetime.datetime.now().isoformat()
+fromTime = (datetime.datetime.now() - datetime.timedelta(minutes = lookUpTime)).isoformat()
+
+with open(mapNewsToCoinsAndNames) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     for row in csv_reader:
         all_articles = []
-        queryCoinName = row[0]
-        searchQuery = queryCoinName + " cryptocurrencies"
+        queryCoinName = "(" + str(row[0]).strip() + ')AND("' +  str(row[1]).strip() + '")'
+        searchQuery = queryCoinName 
         
         
         debug (searchQuery)
         
+        # k = random.randint(0, len(keys)-1)
+        # key = keys[k]
         key = "445938e7b4214f4988780151868665cc"
         newsapi = NewsApiClient(api_key=key)
 
@@ -205,7 +211,7 @@ with open(mapNewsToCoin) as csv_file:
                                                 )
         except:
             continue
-
+            
         all_articles = temp_articles['articles']
         debug (all_articles)
 
@@ -245,24 +251,40 @@ with open(mapNewsToCoin) as csv_file:
                 relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(contentExtracted)
                 relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(contentExtracted)
                 
-                
                 debug (contentExtracted)
                 debug (url)
                 debug ("Related coins using entity " + str(relatedCoinsUsingEntity))
                 debug ("Related coins using direct string match " + str(relatedCoinsUsingDirectMatch))
                 
                 for coin in relatedCoinsUsingDirectMatch: 
-                    tempDict['coin'] = coin
+                    tempDict['relatedCoin'] = coin
+                    tempDict['symbol'] = row[0].strip()
+                    tempDict['coinName'] = row[1].strip()
+                    tempDict['operator1'] = row[3].strip()
+                    tempDict['operator2'] = row[4].strip()
                     searchDict ={}
                     searchDict['url'] = url
                     searchDict['coin'] = coin
                     collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
                     
                 for coin in relatedCoinsUsingEntity: 
-                    tempDict['coin'] = coin
+                    tempDict['relatedCoin'] = coin
+                    tempDict['symbol'] = row[0].strip()
+                    tempDict['coinName'] = row[1].strip()
+                    tempDict['operator1'] = row[3].strip()
+                    tempDict['operator2'] = row[4].strip()
                     searchDict ={}
                     searchDict['url'] = url
                     searchDict['coin'] = coin
                     collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
+                
+                tempDict['symbol'] = row[0].strip()
+                tempDict['coinName'] = row[1].strip()
+                tempDict['operator1'] = row[3].strip()
+                tempDict['operator2'] = row[4].strip()
+                searchDict ={}
+                searchDict['url'] = url
+                searchDict['coin'] = coin
+                collection3.update_one(searchDict, {"$set":tempDict}, upsert=True)
                 
                 
