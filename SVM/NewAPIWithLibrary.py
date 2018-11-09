@@ -281,7 +281,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     searchDict['coinName'] = row[0].strip()
                     collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
                 
-                del tempDict['relatedCoin']
+                tempDict['relatedCoin'] = ""
                 tempDict['symbol'] = row[0].strip()
                 tempDict['coinName'] = row[1].strip()
                 tempDict['operator1'] = row[3].strip()
