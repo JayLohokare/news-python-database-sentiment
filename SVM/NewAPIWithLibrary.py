@@ -265,7 +265,8 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     tempDict['operator2'] = row[4].strip()
                     searchDict ={}
                     searchDict['url'] = url
-                    searchDict['coin'] = coin
+                    searchDict['relatedCoin'] = coin
+                    searchDict['coinName'] = row[0].strip()
                     collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
                     
                 for coin in relatedCoinsUsingEntity: 
@@ -276,16 +277,18 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     tempDict['operator2'] = row[4].strip()
                     searchDict ={}
                     searchDict['url'] = url
-                    searchDict['coin'] = coin
+                    searchDict['relatedCoin'] = coin
+                    searchDict['coinName'] = row[0].strip()
                     collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
                 
+                del tempDict['relatedCoin']
                 tempDict['symbol'] = row[0].strip()
                 tempDict['coinName'] = row[1].strip()
                 tempDict['operator1'] = row[3].strip()
                 tempDict['operator2'] = row[4].strip()
                 searchDict ={}
                 searchDict['url'] = url
-                searchDict['coin'] = coin
+                searchDict['coinName'] = coin
                 collection3.update_one(searchDict, {"$set":tempDict}, upsert=True)
                 
                 
