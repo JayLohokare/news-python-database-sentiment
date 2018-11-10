@@ -294,4 +294,8 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     searchDict['coinName'] = row[1].strip()
                     collection3.update_one(searchDict, {"$set":tempDict}, upsert=True)   
         except:
+            content = ""
+            all_articles = []
+            tempDict = {}
+            searchDict = {}
             continue               
