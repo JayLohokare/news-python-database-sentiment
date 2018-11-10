@@ -189,10 +189,11 @@ currentTime = datetime.datetime.now().isoformat()
 fromTime = (datetime.datetime.now() - datetime.timedelta(minutes = lookUpTime)).isoformat()
 
 
-try:
-    with open(mapNewsToCoinsAndNames) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
+
+with open(mapNewsToCoinsAndNames) as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    for row in csv_reader:
+        try:
             all_articles = []
             queryCoinName = "(" + str(row[0]).strip() + ')AND("' +  str(row[1]).strip() + '")'
             searchQuery = queryCoinName 
@@ -292,6 +293,6 @@ try:
                     searchDict['url'] = url
                     searchDict['coinName'] = coin
                     collection3.update_one(searchDict, {"$set":tempDict}, upsert=True)
-except:
-    pass                  
-                    
+        except:
+            pass      
+                        
