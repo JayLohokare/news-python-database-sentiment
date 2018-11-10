@@ -193,106 +193,104 @@ fromTime = (datetime.datetime.now() - datetime.timedelta(minutes = lookUpTime)).
 with open(mapNewsToCoinsAndNames) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     for row in csv_reader:
+        
+        all_articles = []
+        queryCoinName = "(" + str(row[0]).strip() + ')AND("' +  str(row[1]).strip() + '")'
+        searchQuery = queryCoinName 
+        
+        
+        debug (searchQuery)
+        
+        # k = random.randint(0, len(keys)-1)
+        # key = keys[k]
+        key = "445938e7b4214f4988780151868665cc"
+        newsapi = NewsApiClient(api_key=key)
+
         try:
-            all_articles = []
-            queryCoinName = "(" + str(row[0]).strip() + ')AND("' +  str(row[1]).strip() + '")'
-            searchQuery = queryCoinName 
+            temp_articles = newsapi.get_everything(q=searchQuery,
+                                                domains= domainsCommaSeperated,
+                                                language=language,
+                                                from_param=fromTime,
+                                                to=currentTime,
+                                                )
+        except:
+            continue
             
-            
-            debug (searchQuery)
-            
-            # k = random.randint(0, len(keys)-1)
-            # key = keys[k]
-            key = "445938e7b4214f4988780151868665cc"
-            newsapi = NewsApiClient(api_key=key)
+        all_articles = temp_articles['articles']
+        debug (all_articles)
 
-            try:
-                temp_articles = newsapi.get_everything(q=searchQuery,
-                                                    domains= domainsCommaSeperated,
-                                                    language=language,
-                                                    from_param=fromTime,
-                                                    to=currentTime,
-                                                    )
-            except:
-                continue
+        for j in range(len(all_articles)):
+            url = all_articles[j]['url']
+            contentExtracted = getArticleContent(url).strip()
+            contentExtracted = contentExtracted.replace("\'", "")
+            contentExtracted = contentExtracted.split()
+            contentExtracted2 = []
+            for i in contentExtracted:
+                if i == "Advertisement" or i == "advertisement":
+                    continue
+                else:
+                    contentExtracted2.append(i)
+
+            contentExtracted = " ".join(contentExtracted2)
+
+            content = all_articles[j]['content']
+
+            if content != "":
+                tempDict = {}
+                tempDict['url'] = url
+                tempDict['publishedAt'] = all_articles[j]['publishedAt']
+                tempDict['title'] = all_articles[j]['title']
+                tempDict['description'] = all_articles[j]['description']
+                tempDict['author'] = all_articles[j]['author']
+                tempDict['contentExtracted'] = contentExtracted
+                tempDict['content'] = content
+
+                tempDict['image'] = all_articles[j]['urlToImage']
+                tempDict['source'] = all_articles[j]['source']
+                tempDict['language'] = language
+
+                tempDict['sentiment'] = getSentiment(contentExtracted)
+                tempDict['relevance'] = 0
+
+                relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(contentExtracted)
+                relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(contentExtracted)
                 
-            all_articles = temp_articles['articles']
-            debug (all_articles)
-
-            for j in range(len(all_articles)):
-                url = all_articles[j]['url']
-                contentExtracted = getArticleContent(url).strip()
-                contentExtracted = contentExtracted.replace("\'", "")
-                contentExtracted = contentExtracted.split()
-                contentExtracted2 = []
-                for i in contentExtracted:
-                    if i == "Advertisement" or i == "advertisement":
-                        continue
-                    else:
-                        contentExtracted2.append(i)
-
-                contentExtracted = " ".join(contentExtracted2)
-
-                content = all_articles[j]['content']
-
-                if content != "":
-                    tempDict = {}
-                    tempDict['url'] = url
-                    tempDict['publishedAt'] = all_articles[j]['publishedAt']
-                    tempDict['title'] = all_articles[j]['title']
-                    tempDict['description'] = all_articles[j]['description']
-                    tempDict['author'] = all_articles[j]['author']
-                    tempDict['contentExtracted'] = contentExtracted
-                    tempDict['content'] = content
-
-                    tempDict['image'] = all_articles[j]['urlToImage']
-                    tempDict['source'] = all_articles[j]['source']
-                    tempDict['language'] = language
-
-                    tempDict['sentiment'] = getSentiment(contentExtracted)
-                    tempDict['relevance'] = 0
-
-                    relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(contentExtracted)
-                    relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(contentExtracted)
-                    
-                    debug (contentExtracted)
-                    debug (url)
-                    debug ("Related coins using entity " + str(relatedCoinsUsingEntity))
-                    debug ("Related coins using direct string match " + str(relatedCoinsUsingDirectMatch))
-                    
-                    for coin in relatedCoinsUsingDirectMatch: 
-                        tempDict['relatedCoin'] = coin
-                        tempDict['symbol'] = row[0].strip()
-                        tempDict['coinName'] = row[1].strip()
-                        tempDict['operator1'] = row[3].strip()
-                        tempDict['operator2'] = row[4].strip()
-                        searchDict ={}
-                        searchDict['url'] = url
-                        searchDict['relatedCoin'] = coin
-                        searchDict['coinName'] = row[0].strip()
-                        collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
-                        
-                    for coin in relatedCoinsUsingEntity: 
-                        tempDict['relatedCoin'] = coin
-                        tempDict['symbol'] = row[0].strip()
-                        tempDict['coinName'] = row[1].strip()
-                        tempDict['operator1'] = row[3].strip()
-                        tempDict['operator2'] = row[4].strip()
-                        searchDict ={}
-                        searchDict['url'] = url
-                        searchDict['relatedCoin'] = coin
-                        searchDict['coinName'] = row[0].strip()
-                        collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
-                    
-                    tempDict['relatedCoin'] = ""
+                debug (contentExtracted)
+                debug (url)
+                debug ("Related coins using entity " + str(relatedCoinsUsingEntity))
+                debug ("Related coins using direct string match " + str(relatedCoinsUsingDirectMatch))
+                
+                for coin in relatedCoinsUsingDirectMatch: 
+                    tempDict['relatedCoin'] = coin
                     tempDict['symbol'] = row[0].strip()
                     tempDict['coinName'] = row[1].strip()
                     tempDict['operator1'] = row[3].strip()
                     tempDict['operator2'] = row[4].strip()
                     searchDict ={}
                     searchDict['url'] = url
-                    searchDict['coinName'] = coin
-                    collection3.update_one(searchDict, {"$set":tempDict}, upsert=True)
-        except:
-            pass      
-                        
+                    searchDict['relatedCoin'] = coin
+                    searchDict['coinName'] = row[0].strip()
+                    collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
+                    
+                for coin in relatedCoinsUsingEntity: 
+                    tempDict['relatedCoin'] = coin
+                    tempDict['symbol'] = row[0].strip()
+                    tempDict['coinName'] = row[1].strip()
+                    tempDict['operator1'] = row[3].strip()
+                    tempDict['operator2'] = row[4].strip()
+                    searchDict ={}
+                    searchDict['url'] = url
+                    searchDict['relatedCoin'] = coin
+                    searchDict['coinName'] = row[0].strip()
+                    collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
+                
+                tempDict['relatedCoin'] = ""
+                tempDict['symbol'] = row[0].strip()
+                tempDict['coinName'] = row[1].strip()
+                tempDict['operator1'] = row[3].strip()
+                tempDict['operator2'] = row[4].strip()
+                searchDict ={}
+                searchDict['url'] = url
+                searchDict['coinName'] = coin
+                collection3.update_one(searchDict, {"$set":tempDict}, upsert=True)   
+                    
