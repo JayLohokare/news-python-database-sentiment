@@ -299,3 +299,6 @@ with open(mapNewsToCoinsAndNames) as csv_file:
             tempDict = {}
             searchDict = {}
             continue               
+
+#modify /etc/crontab
+#35 * * * * /home/ubuntu/news-python-database-sentiment/SVM/getNews.sh
