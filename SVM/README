@@ -1,2 +1,4 @@
 Code to fetch news, find entities, map to correct coins and get sentiment
 Uses Spacy, nltk and Scikit
+
+Run as root user
