@@ -1,0 +1,251 @@
+currency,currency_name,query_and_operator,operator_query,operator_and
+LSK,Lisk,"LSK, Lisk",LSK,Lisk
+XRP,Ripple,"XRP, Ripple",XRP,Ripple
+ETH,Ethereum,"ETH, Ethereum",ETH,Ethereum
+BTC,Bitcoin,"BTC, Bitcoin",BTC,Bitcoin
+BCH,Bitcoin Cash,"BCH, Bitcoin Cash",BCH,Bitcoin Cash
+EOS,EOS,"EOS, Crypto",EOS,Crypto
+LTC,Litecoin ,"LTC, Litecoin ",LTC,Litecoin 
+XLM,Stellar Lumen ,"XLM, Stellar Lumen ",XLM,Stellar Lumen
+ADA,Cardano,"ADA, Cardano",ADA,Cardano
+IOT,IOTA ,"IOT, IOTA ",IOT,IOTA
+TRX,TRON,"TRX, TRON",TRX,TRON
+NEO,NEO,"NEO, Crypto",NEO,Crypto
+XMR,Monero,"XMR, Monero",XMR,Monero
+USDT,Tether,"USDT, Tether",USDT,Tether
+DASH,Dash,"DASH, Crypto",DASH,Crypto
+XEM,NEM ,"XEM, NEM ",XEM,NEM
+VEN,VeChain,"VEN, VeChain",VEN,VeChain
+BNB,Binance Coin,"BNB, Binance Coin",BNB,Binance Coin
+ETC,Ethereum Classic,"ETC, Ethereum Classic",ETC,Ethereum Classic
+ONT,Ontology,"ONT, Ontology",ONT,Ontology
+Qtum,QTUM,"QTUM, Crypto",QTUM,Crypto
+OMG,OmiseGo,"OMG, OmiseGo",OMG,OmiseGo
+BCN,Bytecoin,"BCN, Bytecoin",BCN,Bytecoin
+ICX,ICON,"ICX, ICON",ICX,ICON
+ZEC,Zcash,"ZEC, Zcash",ZEC,Zcash
+ZIL,Zilliqa,"ZIL, Zilliqa",ZIL,Zilliqa
+AE,Aeternity,"AE, Aeternity",AE,Aeternity
+DCR,Decred ,"DCR, Decred ",DCR,Decred
+BTG,Bitcoin Gold,"BTG, Bitcoin Gold",BTG,Bitcoin Gold
+ZRX,Ox,"ZRX, Ox",ZRX,Ox
+SC,Siacoin,"SC, Siacoin",SC,Siacoin
+BTM,Bytom,"BTM, Bytom",BTM,Bytom
+STEEM,Steem,"STEEM, Steem",STEEM,Steem
+XVG,VERGE,"XVG, VERGE",XVG,VERGE
+BTS,BitShares,"BTS, BitShares",BTS,BitShares
+NANO,Nano,"NANO, Crypto",NANO,Crypto
+WAVES,Waves,"WAVES, Crypto",WAVES,Crypto
+MKR,Maker,"MKR, Maker",MKR,Maker
+RHOC,RChain,"RHOC, RChain",RHOC,RChain
+WAN,Wanchain,"WAN, Wanchain",WAN,Wanchain
+GNT,Golem,"GNT, Golem",GNT,Golem
+BCD,Bitcoin Diamond,"BCD, Bitcoin Diamond",BCD,Bitcoin Diamond
+STRAT,Stratis,"STRAT, Stratis",STRAT,Stratis
+DOGE,Dogecoin ,"DOGE, Dogecoin ",DOGE,Dogecoin 
+REP,Augur,"REP, Augur",REP,Augur
+PPT,Populous,"PPT, Populous",PPT,Populous
+BTCP,Bitcoin Private,"BTCP, Bitcoin Private",BTCP,Bitcoin Private
+WTC,Waltonchain,"WTC, Waltonchain",WTC,Waltonchain
+XIN,Mixin,"XIN, Mixin",XIN,Mixin
+DGB,DigiByte,"DGB, DigiByte",DGB,DigiByte
+IOST,IOST,"IOST, IOST",IOST,IOST
+SNT,Status,"SNT, Status",SNT,Status
+DGD,DigixDAO,"DGD, DigixDAO",DGD,DigixDAO
+WICC,WaykiChain,"WICC, WaykiChain",WICC,WaykiChain
+HSR,Hshare,"HSR, Hshare",HSR,Hshare
+NAS,Nebulas,"NAS, Nebulas",NAS,Nebulas
+AION,Aion,"AION, Aion",AION,Aion
+LRC,Loopring,"LRC, Loopring",LRC,Loopring
+HT,Huobi Token,"HT, Huobi Token",HT,Huobi Token
+BAT,Basic Attention Token,"BAT, Basic Attention Token",BAT,Basic Attention Token
+ELF,aelf,"ELF, aelf",ELF,aelf
+KMD,Komodo,"KMD, Komodo",KMD,Komodo
+ARK,Ark,"ARK, Crypto",ARK,Crypto
+GXS,GXChain,"GXS, GXChain",GXS,GXChain
+ARDR,Ardor,"ARDR, Ardor",ARDR,Ardor
+ELA,Elastos,"ELA, Elastos",ELA,Elastos
+BNT,Bancor,"BNT, Bancor",BNT,Bancor
+MAID,MaidSafeCoin,"MAID, MaidSafeCoin",MAID,MaidSafeCoin
+CMT,CyberMiles,"CMT, CyberMiles",CMT,CyberMiles
+MOAC,MOAC,"MOAC, MOAC",MOAC,MOAC
+SKY,Skycoin,"SKY, Skycoin",SKY,Skycoin
+PIVX,PIVX,"PIVX, Crypto",PIVX,Crypto
+CNX,Cryptonex,"CNX, Cryptonex",CNX,Cryptonex
+DCN,Dentacoin,"DCN, Dentacoin",DCN,Dentacoin
+GAS,Gas,"GAS, Ethereum",GAS,Ethereum
+MONA,MonaCoin,"MONA, MonaCoin",MONA,MonaCoin
+RDD,ReddCoin,"RDD, ReddCoin",RDD,ReddCoin
+CTXC,Cortex,"CTXC, Cortex",CTXC,Cortex
+KNC,Kyber Network,"KNC, Kyber Network",KNC,Kyber Network
+ETHOS,Ethos,"ETHOS, Crypto",ETHOS,Crypto
+SYS,Syscoin,"SYS, Syscoin",SYS,Syscoin
+LOOM,Loom Network,"LOOM, Loom Network",LOOM,Loom Network
+POLY,Polymath,"POLY, Polymath",POLY,Polymath
+MITH,Mithril,"MITH, Mithril",MITH,Mithril
+QASH,QASH,"QASH, QASH",QASH,QASH
+FSN,Fusion,"FSN, Fusion",FSN,Fusion
+FUN,FunFair,"FUN, FunFair",FUN,FunFair
+BIX,Bibox Token,"BIX, Bibox Token",BIX,Bibox Token
+CENNZ,Centrality,"CENNZ, Centrality",CENNZ,Centrality
+THETA,Theta Token,"THETA, Theta Token",THETA,Theta Token
+ENG,Enigma,"ENG, Crypto",ENG,Crypto
+NULS,Nuls,"NULS, Nuls",NULS,Nuls
+VERI,Veritaseum,"VERI, Veritaseum",VERI,Veritaseum
+SUB,Substratum,"SUB, Substratum",SUB,Substratum
+ETN,Electroneum,"ETN, Electroneum",ETN,Electroneum
+XZC,ZCoin,"XZC, ZCoin",XZC,ZCoin
+NXT,Nxt,"NXT, Crypto",NXT,Crypto
+DRGN,Dragonchain,"DRGN, Dragonchain",DRGN,Dragonchain
+SOC,All Sports,"SOC, All Sports",SOC,All Sports
+DROP,Dropil,"DROP, Dropil",DROP,Dropil
+HOT,Holo,"HOT, Holo",HOT,Holo
+DDD,Scry.info,"DDD, Scry.info",DDD,Scry.info
+FCT,Factom,"FCT, Factom",FCT,Factom
+STORM,Storm,"STORM, Crypto",STORM,Crypto
+BFT,BnkToTheFuture,"BFT, BnkToTheFuture",BFT,BnkToTheFuture
+KIN,Kin,"KIN, Crypto",KIN,Crypto
+DBC,DeepBrain Chain,"DBC, DeepBrain Chain",DBC,DeepBrain Chain
+POWR,Power Ledger,"POWR, Power Ledger",POWR,Power Ledger
+NXS,Nexus,"NXS, Crypto",NXS,Crypto
+GTO,Gifto,"GTO, Gifto",GTO,Gifto
+MAN,Matrix AI Network,"MAN, Matrix AI Network",MAN,Matrix AI Network
+BLOCK,Blocknet,"BLOCK, Blocknet",BLOCK,Blocknet
+WAX,WAX,"WAX, Crypto",WAX,Crypto
+SALT,SALT,"SALT, Crypto",SALT,Crypto
+RLC,iExec RLC,"RLC, iExec RLC",RLC,iExec RLC
+MANA,Decentraland,"MANA, Decentraland",MANA,Decentraland
+HPB,High Performance Blockchain,"HPB, High Performance Blockchain",HPB,High Performance Blockchain
+LINK,ChainLink,"LINK, ChainLink",LINK,ChainLink
+MCO,Monaco,"MCO, Monaco",MCO,Monaco
+EMC,Emercoin,"EMC, Emercoin",EMC,Emercoin
+STORJ,Storj,"STORJ, Storj",STORJ,Storj
+1,True Chain,"1, True Chain",1,True Chain
+CVC,Civic,"CVC, Civic",CVC,Civic
+ACT,Achain,"ACT, Achain",ACT,Achain
+EOSDAC,eosDAC,"EOSDAC, eosDAC",EOSDAC,eosDAC
+PAYX,Paypex,"PAYX, Paypex",PAYX,Paypex
+NEBL,Neblio,"NEBL, Neblio",NEBL,Neblio
+PAY,TenX,"PAY, TenX",PAY,TenX
+ZEN,ZenCash,"ZEN, ZenCash",ZEN,ZenCash
+GBYTE,Byteball Bytes,"GBYTE, Byteball Bytes",GBYTE,Byteball Bytes
+NEXO,Nexo,"NEXO, Nexo",NEXO,Nexo
+BTCD,BitcoinDark,"BTCD, BitcoinDark",BTCD,BitcoinDark
+DENT,Dent,"DENT, Crypto",DENT,Crypto
+QSP,Quantstamp,"QSP, Quantstamp",QSP,Quantstamp
+NCASH,Nucleus Vision,"NCASH, Nucleus Vision",NCASH,Nucleus Vision
+XAS,Asch,"XAS, Asch",XAS,Asch
+R,Revain,"R, Revain",R,Revain
+SMART,SmartCash,"SMART, SmartCash",SMART,SmartCash
+ICN,Iconomi,"ICN, Iconomi",ICN,Iconomi
+AGI,SingularityNET,"AGI, SingularityNET",AGI,SingularityNET
+TNB,Time New Bank,"TNB, Time New Bank",TNB,Time New Bank
+REQ,Request Network,"REQ, Request Network",REQ,Request Network
+CND,Cindicator,"CND, Cindicator",CND,Cindicator
+IHT,IHT Real Estate,"IHT, IHT Real Estate",IHT,IHT Real Estate
+LYM,Lympo,"LYM, Lympo",LYM,Lympo
+RUFF,Ruff,"RUFF, Bitcoin",RUFF,Bitcoin
+ABT,Arcblock,"ABT, Arcblock",ABT,Arcblock
+DPY,Delphy,"DPY, Delphy",DPY,Delphy
+ANT,Aragon,"ANT, Aragon",ANT,Aragon
+ENJ,Enjin Coin,"ENJ, Enjin Coin",ENJ,Enjin Coin
+BLZ,Bluzelle,"BLZ, Bluzelle",BLZ,Bluzelle
+GTC,Game.com,"GTC, Game.com",GTC,Game.com
+GNO,Gnosis,"GNO, Gnosis",GNO,Gnosis
+DATA,Streamr DATAcoin,"DATA, Streamr DATAcoin",DATA,Streamr DATAcoin
+POA,POA Network,"POA, POA Network",POA,POA Network
+SAN,Santiment Network Token,"SAN, Santiment Network Token",SAN,Santiment Network Token
+MDS,MediShares,"MDS, MediShares",MDS,MediShares
+PART,Particl,"PART, Bitcoin",PART,Bitcoin
+SMT,SmartMesh,"SMT, SmartMesh",SMT,SmartMesh
+MTL,Metal,"MTL, Metal",MTL,Metal
+SRN,SIRIN LABS Token,"SRN, SIRIN LABS Token",SRN,SIRIN LABS Token
+BTO,Bottos,"BTO, Bottos",BTO,Bottos
+GRS,Groestlcoin,"GRS, Groestlcoin",GRS,Groestlcoin
+TKY,THEKEY,"TKY, THEKEY",TKY,THEKEY
+GAME,GameCredits,"GAME, GameCredits",GAME,GameCredits
+VTC,Vertcoin,"VTC, Vertcoin",VTC,Vertcoin
+GNX,Genaro Network,"GNX, Genaro Network",GNX,Genaro Network
+STQ,Storiqa,"STQ, Storiqa",STQ,Storiqa
+IGNIS,Ignis,"IGNIS, Crypto",IGNIS,Crypto
+SPHTX,SophiaTX,"SPHTX, SophiaTX",SPHTX,SophiaTX
+SNM,SONM,"SNM, SONM",SNM,SONM
+CVT,CyberVein,"CVT, CyberVein",CVT,CyberVein
+XDN,DigitalNote,"XDN, DigitalNote",XDN,DigitalNote
+DTR,Dynamic Trading Rights,"DTR, Dynamic Trading Rights",DTR,Dynamic Trading Rights
+POE,Po.et,"POE, Po.et",POE,Po.et
+DEW,DEW,"DEW, Bitcoin",DEW,Bitcoin
+PLR,Pillar,"PLR, Pillar",PLR,Pillar
+RDN,Raiden Network,"RDN, Raiden Network",RDN,Raiden Network
+BOS,BOScoin,"BOS, BOScoin",BOS,BOScoin
+VEE,BLOCKv,"VEE, BLOCKv",VEE,BLOCKv
+CS,Credits,"CS, Credits, Bitcoin",CS,Credits Bitcoin
+CRPT,Crypterium,"CRPT, Crypterium",CRPT,Crypterium
+NKN,NKN,"NKN, Bitcoin",NKN,Bitcoin
+GVT,Genesis Vision,"GVT, Genesis Vision",GVT,Genesis Vision
+NAV,NavCoin,"NAV, NavCoin",NAV,NavCoin
+ITC,IoT Chain,"ITC, IoT Chain",ITC,IoT Chain
+AMB,Ambrosus,"AMB, Ambrosus",AMB,Ambrosus
+DTA,DATA,"DTA, Crypto",DTA,Crypto
+UBQ,Ubiq,"UBQ, Ubiq",UBQ,Ubiq
+TRAC,OriginTrail,"TRAC, OriginTrail",TRAC,OriginTrail
+C20,CRYPTO20,"C20, CRYPTO20",C20,CRYPTO20
+TPAY,TokenPay,"TPAY, TokenPay",TPAY,TokenPay
+INK,Ink,"INK, Bitcoin",INK,Bitcoin
+CPX,Apex,"CPX, Apex",CPX,Apex
+MTC,Docademic,"MTC, Docademic",MTC,Docademic
+JNT,Jibrel Network,"JNT, Jibrel Network",JNT,Jibrel Network
+EXC,Eximchain,"EXC, Eximchain",EXC,Eximchain
+BCO,BridgeCoin,"BCO, BridgeCoin",BCO,BridgeCoin
+BURST,Burst,"BURST, Bitcoin",BURST,Bitcoin
+REN,Republic Protocol,"REN, Republic Protocol",REN,Republic Protocol
+AUTO,Cube,"AUTO, Crypto",AUTO,Crypto
+IOTX,IoTeX,"IOTX, IoTeX",IOTX,IoTeX
+BTX,Bitcore,"BTX, Bitcore",BTX,Bitcore
+ZCL,ZClassic,"ZCL, ZClassic",ZCL,ZClassic
+EKT,EDUCare,"EKT, EDUCare",EKT,EDUCare
+BRD,Bread,"BRD, Bread",BRD,Bread
+XPM,Primecoin,"XPM, Primecoin",XPM,Primecoin
+LEND,ETHLend,"LEND, ETHLend",LEND,ETHLend
+PPC,Peercoin,"PPC, Peercoin",PPC,Peercoin
+TEN,Tokenomy,"TEN, Tokenomy",TEN,Tokenomy
+XSN,Stakenet,"XSN, Stakenet",XSN,Stakenet
+TIO,Trade Token,"TIO, Trade Token",TIO,Trade Token
+TEL,Telcoin,"TEL, Telcoin",TEL,Telcoin
+ECA,Electra,"ECA, Electra",ECA,Electra
+OST,OST,"OST, Bitcoin",OST,Bitcoin
+RPX,Red Pulse,"RPX, Red Pulse",RPX,Red Pulse
+TUSD,TrueUSD,"TUSD, TrueUSD",TUSD,TrueUSD
+DAX,DAEX,"DAX, DAEX",DAX,DAEX
+EDG,Edgeless,"EDG, Edgeless",EDG,Edgeless
+DAI,Dai,"DAI, Bitcoin",DAI,Bitcoin
+EDO,Eidoo,"EDO, Eidoo",EDO,Eidoo
+TOMO,TomoChain,"TOMO, TomoChain",TOMO,TomoChain
+ADX,AdEx,"ADX, AdEx",ADX,AdEx
+WGR,Wagerr,"WGR, Wagerr",WGR,Wagerr
+EMC2,Einsteinium,"EMC2, Einsteinium",EMC2,Einsteinium
+SWM,Swarm,"SWM, Swarm",SWM,Swarm
+RKT,Rock,"RKT, Rock",RKT,Rock
+RCN,Ripio Credit Network,"RCN, Ripio Credit Network",RCN,Ripio Credit Network
+BAX,BABB,"BAX, BABB",BAX,BABB
+QRL,Quantum Resistant Ledger,"QRL, Quantum Resistant Ledger",QRL,Quantum Resistant Ledger
+PPP,PayPie,"PPP, PayPie",PPP,PayPie
+SLS,SaluS,"SLS, SaluS",SLS,SaluS
+SAFEX,Safe Exchange coin,"SAFEX, Safe Exchange coin",SAFEX,Safe Exchange coin
+VIA,Viacoin,"VIA, Viacoin",VIA,Viacoin
+HOT,Hydro Protocol,"HOT, Hydro Protocol",HOT,Hydro Protocol
+RNTB,BitRent,"RNTB, BitRent",RNTB,BitRent
+TKN,TokenCard,"TKN, TokenCard",TKN,TokenCard
+AST,AirSwap,"AST, AirSwap",AST,AirSwap
+CLOAK,CloakCoin,"CLOAK, CloakCoin",CLOAK,CloakCoin
+BAY,BitBay,"BAY, BitBay",BAY,BitBay
+SWFTC,SwftCoin,"SWFTC, SwftCoin",SWFTC,SwftCoin
+BITCNY,bitCNY,"BITCNY, bitCNY",BITCNY,bitCNY
+PRL,Oyster,"PRL, Oyster",PRL,Oyster
+LET,LinkEye,"LET, LinkEye",LET,LinkEye
+SNGLS,SingularDTV,"SNGLS, SingularDTV",SNGLS,SingularDTV
+SPANK,SpankChain,"SPANK, SpankChain",SPANK,SpankChain
+ZCO,Zebi,"ZCO, Zebi",ZCO,Zebi
+FXT,FuzeX,"FXT, FuzeX",FXT,FuzeX
+WINGS,Wings,"WINGS, Bitcoin",WINGS,Bitcoin
+XCP,Counterparty,"XCP, Counterparty",XCP,Counterparty
