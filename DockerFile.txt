@@ -4,12 +4,18 @@ Base ubuntu
 
 sudo apt-get update
 sudo apt install python3-pip
+
 Install Git
-GitClone ..
+
+git clone https://github.com/JayLohokare/news-python-database-sentiment.git
 sudo pip3 install pymongo
 sudo pip3 install newsapi-python
 sudo pip3 install newspaper3k
 sudo pip3 install pandas
+sudo pip install sklearn
+sudo pip install spacy
+
+sudo python3 -m spacy download en
 
 
 ./news-python-database-sentiment/SVM/getNews.sh
