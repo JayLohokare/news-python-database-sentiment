@@ -44,7 +44,7 @@ else:
     debugOn = 0
 
 if len(sys.argv) > 3:
-    printEntities = int(sys.argv[2])
+    printEntities = int(sys.argv[3])
 else:
     printEntities = 0
 
