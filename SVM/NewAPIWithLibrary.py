@@ -62,7 +62,7 @@ db = client['uptick_news_database']
 collection = db.news
 collection2 = db.news2
 collection3 = db.news3
-
+collection4 = db.news4
 
 
 # In[3]:
@@ -283,7 +283,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                         searchDict['relatedCoin'] = coin
                         searchDict['coinName'] = row[0].strip()
                         collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
-                    
+
                     tempDict['relatedCoin'] = ""
                     tempDict['symbol'] = row[0].strip()
                     tempDict['coinName'] = row[1].strip()
@@ -300,5 +300,6 @@ with open(mapNewsToCoinsAndNames) as csv_file:
             searchDict = {}
             continue               
 
+client.close()
 #modify /etc/crontab
 #35 * * * * /home/ubuntu/news-python-database-sentiment/SVM/getNews.sh
