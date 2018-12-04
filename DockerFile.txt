@@ -17,5 +17,10 @@ sudo pip install spacy
 
 sudo python3 -m spacy download en
 
+sudo service cron stop
+sudo service cron start
+
+
+
 
 ./news-python-database-sentiment/SVM/getNews.sh

@@ -283,6 +283,18 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                         searchDict['relatedCoin'] = coin
                         searchDict['coinName'] = row[0].strip()
                         collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
+                    
+                    if row[0].strip() in relatedCoinsUsingDirectMatch:
+                        tempDict['relatedCoin'] = row[0].strip()
+                        tempDict['symbol'] = row[0].strip()
+                        tempDict['coinName'] = row[1].strip()
+                        tempDict['operator1'] = row[3].strip()
+                        tempDict['operator2'] = row[4].strip()
+                        searchDict ={}
+                        searchDict['url'] = url
+                        searchDict['relatedCoin'] = row[0].strip()
+                        searchDict['coinName'] = row[0].strip()
+                        collection4.update_one(searchDict, {"$set":tempDict}, upsert=True)
 
                     tempDict['relatedCoin'] = ""
                     tempDict['symbol'] = row[0].strip()
