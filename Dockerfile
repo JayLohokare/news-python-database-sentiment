@@ -10,15 +10,12 @@ RUN apt-get update && \
     pip3 install pandas && \
     pip3 install sklearn && \
     pip3 install spacy && \
-    python3 -m spacy download en
+    python3 -m spacy download en && \
+    locale-gen "en_US.UTF-8" && \
+    dpkg-reconfigure locales
 
-ADD news-python-database-sentiment news-python-database-sentiment
-ADD newLog.log newLog.log
+ADD ./SentimentUptick/news-python-database-sentiment /home/ubuntu/news-python-database-sentiment
 
 WORKDIR /home/ubuntu/news-python-database-sentiment/SVM/
 
-RUN ls
-
-RUN chmod +x /home/ubuntu/news-python-database-sentiment/SVM/dockerRun.sh
-
-RUN sh /home/ubuntu/news-python-database-sentiment/SVM/dockerRun.sh
+RUN python3 NewAPIWithLibrary.py 1000 0 0

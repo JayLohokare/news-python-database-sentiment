@@ -172,11 +172,12 @@ fromTime = (datetime.datetime.now() - datetime.timedelta(minutes = lookUpTime)).
 
 with open(mapNewsToCoinsAndNames) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
+    print (csv_reader)
     for row in csv_reader:
         try:
             all_articles = []
             queryCoinName = '("' + str(row[3]).strip() + '")AND("' +  str(row[4]).strip() + '")'
-            # print (queryCoinName)
+            print (queryCoinName)
             searchQuery = queryCoinName 
             
             debug (searchQuery)
