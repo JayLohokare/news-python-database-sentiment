@@ -59,10 +59,9 @@ vectorFile = 'vector.pkl'
 modelFile = 'svm.pkl'
 client = MongoClient('mongodb://root:LCl67MkFgRqV@18.208.219.105', 27017)
 db = client['uptick_news_database']
-collection = db.news
-collection2 = db.news2
-collection3 = db.news3
 
+#Collection names
+news = db.news
 raw = db.raw
 sentiment = db.sentiments
 
@@ -260,23 +259,28 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(content)
                     relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(content)
                     
-                    #Saving raw news into raw collection
+                    #Saving raw relevant news into raw and sentiment collection
                     if row[0].strip() in relatedCoinsUsingEntity:
                         searchDict ={}
                         searchDict['url'] = url
                         searchDict['query_params'] = query_params
-                        raw.update(searchDict, {"$set":tempDict}, upsert=True)
+                        raw.update_one(searchDict, {"$set":tempDict}, upsert=True)
+
+                        #Add sentiment
+                        tempDict['sentiment'] = getSentiment(contentExtracted)
+                        tempDict['relevance'] = 0
+                        sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)
 
                     
                     #Add sentiment
                     tempDict['sentiment'] = getSentiment(contentExtracted)
                     tempDict['relevance'] = 0
 
-                    #Save sentiments into sentiment collection
+                    #Save sentiments into news collection (Collecting all news irrespective of relevance)
                     searchDict ={}
                     searchDict['url'] = url
                     searchDict['query_params'] = query_params
-                    sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)   
+                    news.update_one(searchDict, {"$set":tempDict}, upsert=True)   
                     
                     #Debug statement (Executed only if cmd parameters are passed correctly)
                     debug (contentExtracted)
