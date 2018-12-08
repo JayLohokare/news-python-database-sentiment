@@ -161,6 +161,22 @@ def getRelatedCoinsUsingDirectMatch(content):
 # In[7]:
 
 
+def getFilteredContent(url):
+    contentExtracted = getArticleContent(url).strip()
+    contentExtracted = contentExtracted.replace("\'", "")
+    contentExtracted = contentExtracted.split()
+    contentExtracted2 = []
+    for i in contentExtracted:
+        if i == "Advertisement" or i == "advertisement":
+            continue
+        else:
+            contentExtracted2.append(i)
+
+    contentExtracted = " ".join(contentExtracted2)
+    return contentExtracted
+
+
+
 def getSentiment(content):
     content = [content]
     file = open(vectorFile, 'rb')
@@ -178,17 +194,10 @@ def getSentiment(content):
     return predLabel[0]
 
 
-# In[16]:
-
 
 #Making API call per coin
 currentTime = datetime.datetime.now().isoformat()
 fromTime = (datetime.datetime.now() - datetime.timedelta(minutes = lookUpTime)).isoformat()
-
-#Making API call per coin
-currentTime = datetime.datetime.now().isoformat()
-fromTime = (datetime.datetime.now() - datetime.timedelta(minutes = lookUpTime)).isoformat()
-
 
 
 with open(mapNewsToCoinsAndNames) as csv_file:
@@ -199,21 +208,22 @@ with open(mapNewsToCoinsAndNames) as csv_file:
             queryCoinName = "(" + str(row[0]).strip() + ')AND("' +  str(row[1]).strip() + '")'
             searchQuery = queryCoinName 
             
-            
             debug (searchQuery)
             
+            #Commented code to select key randomly from set of keys
             # k = random.randint(0, len(keys)-1)
             # key = keys[k]
+
             key = "445938e7b4214f4988780151868665cc"
             newsapi = NewsApiClient(api_key=key)
 
             try:
                 temp_articles = newsapi.get_everything(q=searchQuery,
-                                                    domains= domainsCommaSeperated,
-                                                    language=language,
-                                                    from_param=fromTime,
-                                                    to=currentTime,
-                                                    )
+                                    domains= domainsCommaSeperated,
+                                    language=language,
+                                    from_param=fromTime,
+                                    to=currentTime,
+                                    )
             except:
                 continue
                 
@@ -222,21 +232,18 @@ with open(mapNewsToCoinsAndNames) as csv_file:
 
             for j in range(len(all_articles)):
                 url = all_articles[j]['url']
-                contentExtracted = getArticleContent(url).strip()
-                contentExtracted = contentExtracted.replace("\'", "")
-                contentExtracted = contentExtracted.split()
-                contentExtracted2 = []
-                for i in contentExtracted:
-                    if i == "Advertisement" or i == "advertisement":
-                        continue
-                    else:
-                        contentExtracted2.append(i)
-
-                contentExtracted = " ".join(contentExtracted2)
-
+                contentExtracted = getFilteredContent(url)
                 content = all_articles[j]['content']
 
                 if content != "":
+                    #Query parameters saved as a dictionary
+                    query_params = {}
+                    query_params['currency'] = row[0].strip()
+                    query_params['currency_name'] = row[1].strip()
+                    query_params['operator1'] = row[3].strip()
+                    query_params['operator2'] = row[4].strip()
+
+                    #Initiating content to be saved into MongoDB
                     tempDict = {}
                     tempDict['url'] = url
                     tempDict['publishedAt'] = all_articles[j]['publishedAt']
@@ -245,41 +252,57 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     tempDict['author'] = all_articles[j]['author']
                     tempDict['contentExtracted'] = contentExtracted
                     tempDict['content'] = content
-                    tempDict['image'] = all_articles[j]['urlToImage']
+                    tempDict['urlToImage'] = all_articles[j]['urlToImage']
                     tempDict['source'] = all_articles[j]['source']
                     tempDict['language'] = language
+                    tempDict['query_params'] = query_params
 
+                    relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(content)
+                    relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(content)
+                    
+                    #Saving raw news into raw collection
                     if row[0].strip() in relatedCoinsUsingEntity:
-                        tempDict['relatedCoin'] = row[0].strip()
-                        tempDict['symbol'] = row[0].strip()
-                        tempDict['coinName'] = row[1].strip()
-                        tempDict['operator1'] = row[3].strip()
-                        tempDict['operator2'] = row[4].strip()
                         searchDict ={}
                         searchDict['url'] = url
-                        searchDict['coinName'] = row[1].strip()
+                        searchDict['query_params']['currency_name'] = row[1].strip()
                         raw.update(searchDict, {"$set":tempDict}, upsert=True)
 
+                    
+                    #Add sentiment
                     tempDict['sentiment'] = getSentiment(contentExtracted)
                     tempDict['relevance'] = 0
-                    tempDict['symbol'] = row[0].strip()
-                    tempDict['coinName'] = row[1].strip()
-                    tempDict['operator1'] = row[3].strip()
-                    tempDict['operator2'] = row[4].strip()
+
+                    #Save sentiments into sentiment collection
                     searchDict ={}
                     searchDict['url'] = url
-                    searchDict['coinName'] = row[1].strip()
+                    searchDict['query_params']['currency_name'] = row[1].strip()
                     sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)   
-
-                    relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(contentExtracted)
-                    relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(contentExtracted)
                     
+                    #Debug statement (Executed only if cmd parameters are passed correctly)
                     debug (contentExtracted)
                     debug (url)
                     debug ("Related coins using entity " + str(relatedCoinsUsingEntity))
                     debug ("Related coins using direct string match " + str(relatedCoinsUsingDirectMatch))
                     
-                    # for coin in relatedCoinsUsingDirectMatch: 
+                   
+        except:
+            content = ""
+            all_articles = []
+            tempDict = {}
+            searchDict = {}
+            continue               
+
+client.close()
+
+
+
+
+
+#modify /etc/crontab
+#35 * * * * /home/ubuntu/news-python-database-sentiment/SVM/getNews.sh
+
+
+ # for coin in relatedCoinsUsingDirectMatch: 
                     #     tempDict['relatedCoin'] = coin
                     #     tempDict['symbol'] = row[0].strip()
                     #     tempDict['coinName'] = row[1].strip()
@@ -302,14 +325,3 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     #     searchDict['relatedCoin'] = coin
                     #     searchDict['coinName'] = row[0].strip()
                     #     collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
-                   
-        except:
-            content = ""
-            all_articles = []
-            tempDict = {}
-            searchDict = {}
-            continue               
-
-client.close()
-#modify /etc/crontab
-#35 * * * * /home/ubuntu/news-python-database-sentiment/SVM/getNews.sh
