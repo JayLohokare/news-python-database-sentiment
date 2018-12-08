@@ -297,6 +297,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                         
                         if not collection4.find_one(searchDict):
                             print ("Dint find existing news, adding to collection")
+                            print (collection4.find_one(searchDict))
                             collection4.update(searchDict, {"$set":tempDict}, upsert=True)
 
                     tempDict['relatedCoin'] = ""
