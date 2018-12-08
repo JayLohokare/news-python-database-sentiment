@@ -239,6 +239,11 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     searchDict['query_params'] = query_params
                     news.update_one(searchDict, {"$set":tempDict}, upsert=True)  
 
+                    #Add sentiment
+                    tempDict['sentiment'] = getSentiment(contentExtracted)
+                    tempDict['relevance'] = 0
+                    sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)
+
 
                     #Saving raw relevant news into raw and sentiment collection
                     if row[0].strip() in relatedCoinsUsingEntity:
@@ -246,11 +251,6 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                         searchDict['url'] = url
                         searchDict['query_params'] = query_params
                         raw.update_one(searchDict, {"$set":tempDict}, upsert=True)
-
-                        #Add sentiment
-                        tempDict['sentiment'] = getSentiment(contentExtracted)
-                        tempDict['relevance'] = 0
-                        sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)
 
                     
                     #Debug statement (Executed only if cmd parameters are passed correctly)
