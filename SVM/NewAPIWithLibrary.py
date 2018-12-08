@@ -293,13 +293,9 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                         searchDict ={}
                         searchDict['url'] = url
                         searchDict['relatedCoin'] = row[0].strip()
-                        searchDict['coinName'] = row[0].strip()
+                        searchDict['coinName'] = row[1].strip()
                         
-                        if not collection4.find_one(searchDict):
-                            print (searchDict)
-                            print ("Dint find existing news, adding to collection")
-                            print (collection4.find_one(searchDict))
-                            collection4.update(searchDict, {"$set":tempDict}, upsert=True)
+                        collection4.update(searchDict, {"$set":tempDict}, upsert=True)
 
                     tempDict['relatedCoin'] = ""
                     tempDict['symbol'] = row[0].strip()
