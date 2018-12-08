@@ -177,7 +177,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
         try:
             all_articles = []
             queryCoinName = '("' + str(row[3]).strip() + '")AND("' +  str(row[4]).strip() + '")'
-            print (queryCoinName)
+            debug (queryCoinName)
             searchQuery = queryCoinName 
             
             debug (searchQuery)
