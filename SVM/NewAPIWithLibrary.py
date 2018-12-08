@@ -62,8 +62,9 @@ db = client['uptick_news_database']
 collection = db.news
 collection2 = db.news2
 collection3 = db.news3
-collection4 = db.news4
 
+raw = db.raw
+sentiment = db.sentiments
 
 # In[3]:
 
@@ -244,13 +245,31 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     tempDict['author'] = all_articles[j]['author']
                     tempDict['contentExtracted'] = contentExtracted
                     tempDict['content'] = content
-
                     tempDict['image'] = all_articles[j]['urlToImage']
                     tempDict['source'] = all_articles[j]['source']
                     tempDict['language'] = language
 
+                    if row[0].strip() in relatedCoinsUsingEntity:
+                        tempDict['relatedCoin'] = row[0].strip()
+                        tempDict['symbol'] = row[0].strip()
+                        tempDict['coinName'] = row[1].strip()
+                        tempDict['operator1'] = row[3].strip()
+                        tempDict['operator2'] = row[4].strip()
+                        searchDict ={}
+                        searchDict['url'] = url
+                        searchDict['coinName'] = row[1].strip()
+                        raw.update(searchDict, {"$set":tempDict}, upsert=True)
+
                     tempDict['sentiment'] = getSentiment(contentExtracted)
                     tempDict['relevance'] = 0
+                    tempDict['symbol'] = row[0].strip()
+                    tempDict['coinName'] = row[1].strip()
+                    tempDict['operator1'] = row[3].strip()
+                    tempDict['operator2'] = row[4].strip()
+                    searchDict ={}
+                    searchDict['url'] = url
+                    searchDict['coinName'] = row[1].strip()
+                    sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)   
 
                     relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(contentExtracted)
                     relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(contentExtracted)
@@ -260,52 +279,30 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     debug ("Related coins using entity " + str(relatedCoinsUsingEntity))
                     debug ("Related coins using direct string match " + str(relatedCoinsUsingDirectMatch))
                     
-                    for coin in relatedCoinsUsingDirectMatch: 
-                        tempDict['relatedCoin'] = coin
-                        tempDict['symbol'] = row[0].strip()
-                        tempDict['coinName'] = row[1].strip()
-                        tempDict['operator1'] = row[3].strip()
-                        tempDict['operator2'] = row[4].strip()
-                        searchDict ={}
-                        searchDict['url'] = url
-                        searchDict['relatedCoin'] = coin
-                        searchDict['coinName'] = row[0].strip()
-                        collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
+                    # for coin in relatedCoinsUsingDirectMatch: 
+                    #     tempDict['relatedCoin'] = coin
+                    #     tempDict['symbol'] = row[0].strip()
+                    #     tempDict['coinName'] = row[1].strip()
+                    #     tempDict['operator1'] = row[3].strip()
+                    #     tempDict['operator2'] = row[4].strip()
+                    #     searchDict ={}
+                    #     searchDict['url'] = url
+                    #     searchDict['relatedCoin'] = coin
+                    #     searchDict['coinName'] = row[0].strip()
+                    #     collection.update_one(searchDict, {"$set":tempDict}, upsert=True)
                         
-                    for coin in relatedCoinsUsingEntity: 
-                        tempDict['relatedCoin'] = coin
-                        tempDict['symbol'] = row[0].strip()
-                        tempDict['coinName'] = row[1].strip()
-                        tempDict['operator1'] = row[3].strip()
-                        tempDict['operator2'] = row[4].strip()
-                        searchDict ={}
-                        searchDict['url'] = url
-                        searchDict['relatedCoin'] = coin
-                        searchDict['coinName'] = row[0].strip()
-                        collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
-                    
-                    if row[0].strip() in relatedCoinsUsingEntity:
-                        tempDict['relatedCoin'] = row[0].strip()
-                        tempDict['symbol'] = row[0].strip()
-                        tempDict['coinName'] = row[1].strip()
-                        tempDict['operator1'] = row[3].strip()
-                        tempDict['operator2'] = row[4].strip()
-                        searchDict ={}
-                        searchDict['url'] = url
-                        searchDict['relatedCoin'] = row[0].strip()
-                        searchDict['coinName'] = row[1].strip()
-                        
-                        collection4.update(searchDict, {"$set":tempDict}, upsert=True)
-
-                    tempDict['relatedCoin'] = ""
-                    tempDict['symbol'] = row[0].strip()
-                    tempDict['coinName'] = row[1].strip()
-                    tempDict['operator1'] = row[3].strip()
-                    tempDict['operator2'] = row[4].strip()
-                    searchDict ={}
-                    searchDict['url'] = url
-                    searchDict['coinName'] = row[1].strip()
-                    collection3.update_one(searchDict, {"$set":tempDict}, upsert=True)   
+                    # for coin in relatedCoinsUsingEntity: 
+                    #     tempDict['relatedCoin'] = coin
+                    #     tempDict['symbol'] = row[0].strip()
+                    #     tempDict['coinName'] = row[1].strip()
+                    #     tempDict['operator1'] = row[3].strip()
+                    #     tempDict['operator2'] = row[4].strip()
+                    #     searchDict ={}
+                    #     searchDict['url'] = url
+                    #     searchDict['relatedCoin'] = coin
+                    #     searchDict['coinName'] = row[0].strip()
+                    #     collection2.update_one(searchDict, {"$set":tempDict}, upsert=True)
+                   
         except:
             content = ""
             all_articles = []
