@@ -12,17 +12,13 @@ RUN apt-get update && \
     pip3 install spacy && \
     python3 -m spacy download en
 
-RUN echo "First LS"
+ADD news-python-database-sentiment news-python-database-sentiment
+ADD newLog.log newLog.log
+
+WORKDIR /home/ubuntu/news-python-database-sentiment/SVM/
+
 RUN ls
 
+RUN chmod +x /home/ubuntu/news-python-database-sentiment/SVM/dockerRun.sh
 
-WORKDIR /home/ubuntu
-
-ADD /news-python-database-sentiment /home/ubuntu/news-python-database-sentiment
-ADD newLog.log /home/ubuntu/newLog.log
-
-RUN echo "Second LS"
-RUN ls
-RUN chmod +x /home/ubuntu/news-python-database-sentiment/SVM/getNews.sh
-
-RUN sh /home/ubuntu/news-python-database-sentiment/SVM/getNews.sh
+RUN sh /home/ubuntu/news-python-database-sentiment/SVM/dockerRun.sh
