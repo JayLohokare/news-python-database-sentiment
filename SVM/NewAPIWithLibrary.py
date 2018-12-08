@@ -264,7 +264,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     if row[0].strip() in relatedCoinsUsingEntity:
                         searchDict ={}
                         searchDict['url'] = url
-                        searchDict['query_params']['currency_name'] = row[1].strip()
+                        searchDict['query_params'] = query_params
                         raw.update(searchDict, {"$set":tempDict}, upsert=True)
 
                     
@@ -275,7 +275,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     #Save sentiments into sentiment collection
                     searchDict ={}
                     searchDict['url'] = url
-                    searchDict['query_params']['currency_name'] = row[1].strip()
+                    searchDict['query_params'] = query_params
                     sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)   
                     
                     #Debug statement (Executed only if cmd parameters are passed correctly)
@@ -285,8 +285,9 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     debug ("Related coins using direct string match " + str(relatedCoinsUsingDirectMatch))
                     
                    
-        except:
+        except Exception as e: 
             print ("Encountered error")
+            print (e)
             content = ""
             all_articles = []
             tempDict = {}
