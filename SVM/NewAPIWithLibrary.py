@@ -286,6 +286,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     
                    
         except:
+            print ("Encountered error")
             content = ""
             all_articles = []
             tempDict = {}
