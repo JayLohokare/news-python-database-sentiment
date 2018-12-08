@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import csv
 import requests
 import json
@@ -22,18 +16,15 @@ from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
-
-
 import re
 import spacy
+
 nlp = spacy.load('en_core_web_sm')
 
 
 def debug(string):
     if debugOn == 1:
         print (str(string) + '\n')
-
-# In[2]:
 
 #Get time from comman line arguments
 lookUpTime = int(sys.argv[1]) #In minutes
@@ -78,23 +69,11 @@ with open(domainsFile) as csv_file:
 domainsCommaSeperated = ','.join(domainsList)
 
 
-# In[4]:
-
-
 keys = []
 with open(keysFile) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     for row in csv_reader:
         keys.append(row[0])
-
-
-# In[ ]:
-
-
-
-
-
-# In[5]:
 
 
 def getArticleContent(url):
@@ -106,9 +85,6 @@ def getArticleContent(url):
         return article.text
     except:
         return ""
-
-
-# In[13]:
 
 
 def getRelatedCoinsUsingEntity(content):
@@ -146,7 +122,6 @@ def getRelatedCoinsUsingDirectMatch(content):
             searchTerms = row
             areAllTermsPresent = True
             for searchTerm in searchTerms:
-#                 print(searchTerm)
                 if searchTerm.lower().strip() not in content:
                     areAllTermsPresent = False
                     break
@@ -154,10 +129,6 @@ def getRelatedCoinsUsingDirectMatch(content):
                 coins.append(row[0])
     
     return coins
-
-
-
-# In[7]:
 
 
 def getFilteredContent(url):
@@ -204,7 +175,8 @@ with open(mapNewsToCoinsAndNames) as csv_file:
     for row in csv_reader:
         try:
             all_articles = []
-            queryCoinName = "(" + str(row[0]).strip() + ')AND("' +  str(row[1]).strip() + '")'
+            queryCoinName = '("' + str(row[3]).strip() + '")AND("' +  str(row[4]).strip() + '")'
+            # print (queryCoinName)
             searchQuery = queryCoinName 
             
             debug (searchQuery)
@@ -259,6 +231,14 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(content)
                     relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(content)
                     
+
+                    #Save sentiments into news collection (Collecting all news irrespective of relevance)
+                    searchDict ={}
+                    searchDict['url'] = url
+                    searchDict['query_params'] = query_params
+                    news.update_one(searchDict, {"$set":tempDict}, upsert=True)  
+
+
                     #Saving raw relevant news into raw and sentiment collection
                     if row[0].strip() in relatedCoinsUsingEntity:
                         searchDict ={}
@@ -272,26 +252,14 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                         sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)
 
                     
-                    #Add sentiment
-                    tempDict['sentiment'] = getSentiment(contentExtracted)
-                    tempDict['relevance'] = 0
-
-                    #Save sentiments into news collection (Collecting all news irrespective of relevance)
-                    searchDict ={}
-                    searchDict['url'] = url
-                    searchDict['query_params'] = query_params
-                    news.update_one(searchDict, {"$set":tempDict}, upsert=True)   
-                    
                     #Debug statement (Executed only if cmd parameters are passed correctly)
                     debug (contentExtracted)
                     debug (url)
                     debug ("Related coins using entity " + str(relatedCoinsUsingEntity))
                     debug ("Related coins using direct string match " + str(relatedCoinsUsingDirectMatch))
                     
-                   
         except Exception as e: 
-            print ("Encountered error")
-            print (e)
+            print ("Encountered error ", e)
             content = ""
             all_articles = []
             tempDict = {}
