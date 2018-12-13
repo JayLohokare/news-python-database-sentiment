@@ -146,7 +146,6 @@ def getFilteredContent(url):
     return contentExtracted
 
 
-
 def getSentiment(content):
     content = [content]
     file = open(vectorFile, 'rb')
@@ -162,7 +161,6 @@ def getSentiment(content):
     tags = ['Negative','Neutral','Positive']
 
     return predLabel[0]
-
 
 
 #Making API call per coin
