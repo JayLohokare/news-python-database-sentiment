@@ -195,8 +195,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                                     domains= domainsCommaSeperated,
                                     language=language,
                                     from_param=fromTime,
-                                    to=currentTime,
-                                    sortBy="publishedAt"
+                                    to=currentTime
                                     )
             except:
                 continue
