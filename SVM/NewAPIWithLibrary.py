@@ -18,6 +18,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 import re
 import spacy
+import copy
 import redisSlidingWindow
 
 
@@ -225,14 +226,16 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     tempDict['contentExtracted'] = contentExtracted
                     tempDict['content'] = content
                     tempDict['urlToImage'] = all_articles[j]['urlToImage']
-                    tempDict['source'] = all_articles[j]['source']
                     tempDict['language'] = language
 
                     #Save news to news queue
-                    redisRawNews.insertObject(url, tempDict)
+                    redisDict = copy.deepcopy(tempDict)
+                    redisDict['source'] = all_articles[j]['source']['name']
+                    redisRawNews.insertObject(url, redisDict)
 
                     tempDict['query_params'] = query_params
-
+                    tempDict['source'] = all_articles[j]['source']
+                    
                     relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(content)
                     relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(content)
                     
