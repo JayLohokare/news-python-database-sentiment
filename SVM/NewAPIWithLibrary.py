@@ -176,6 +176,8 @@ with open(mapNewsToCoinsAndNames) as csv_file:
     print (csv_reader)
     for row in csv_reader:
         try:
+            redisCoinClient = redisSlidingWindow.SlidingWindow(debugOn = debugOn, host = "daix-news-api.fcryea.ng.0001.use1.cache.amazonaws.com", port=6379, queueSize = redisQueueSize, newsQueueName = row[0].strip())
+
             all_articles = []
             queryCoinName = '("' + str(row[3]).strip() + '")AND("' +  str(row[4]).strip() + '")'
             debug (queryCoinName)
@@ -250,7 +252,15 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     tempDict['relevance'] = 0
                     sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)
 
-                    
+                    #Write into REDIS coin queue
+                    redisDict['currency'] = row[0].strip()
+                    redisDict['currency_name'] = row[1].strip()
+                    redisDict['operator1'] = row[3].strip()
+                    redisDict['operator2'] = row[4].strip()
+                    redisDict['sentiment'] = getSentiment(contentExtracted)
+                    redisDict['relevance'] = 0
+                    redisCoinClient.insertObject(row[0].strip() + "_" +url, redisDict)
+
                     #Saving raw relevant news into raw and sentiment collection
                     if row[0].strip() in relatedCoinsUsingEntity:
                         searchDict ={}
@@ -264,7 +274,9 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     debug (url)
                     debug ("Related coins using entity " + str(relatedCoinsUsingEntity))
                     debug ("Related coins using direct string match " + str(relatedCoinsUsingDirectMatch))
-                    
+
+            redisCoinClient.endRedis()     
+
         except Exception as e: 
             print ("Encountered error ", e)
             content = ""
