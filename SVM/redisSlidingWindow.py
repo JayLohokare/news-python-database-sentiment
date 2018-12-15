@@ -8,8 +8,10 @@ class SlidingWindow(object):
         self.db = redis.Redis(host=host, port=port)
         self.newsQueueSize = queueSize
         self.newsQueueName = newsQueueName
-        if debugOn == True or debugOn == 1:
-            self.debugOn = debugOn
+        if debugOn == 1:
+            debugOn = True
+        self.debugOn = debugOn
+            
     
     def endRedis(self):
         self.db.connection_pool.disconnect()
