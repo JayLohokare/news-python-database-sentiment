@@ -18,9 +18,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 import re
 import spacy
+import redisSlidingWindow
+
 
 nlp = spacy.load('en_core_web_sm')
-
 
 def debug(string):
     if debugOn == 1:
@@ -56,8 +57,9 @@ news = db.news
 raw = db.raw
 sentiment = db.sentiments
 
-# In[3]:
-
+#Redis config
+redisQueueSize = 200
+redisRawNews = redisSlidingWindow.SlidingWindow(redisQueueSize)
 
 namesList = []
 domainsList = []
@@ -193,6 +195,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                                     language=language,
                                     from_param=fromTime,
                                     to=currentTime,
+                                    sort_by='publishedAt'
                                     )
             except:
                 continue
@@ -225,12 +228,15 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     tempDict['urlToImage'] = all_articles[j]['urlToImage']
                     tempDict['source'] = all_articles[j]['source']
                     tempDict['language'] = language
+
+                    #Save news to news queue
+                    redisRawNews.insertObject(url, tempDict)
+
                     tempDict['query_params'] = query_params
 
                     relatedCoinsUsingEntity = getRelatedCoinsUsingEntity(content)
                     relatedCoinsUsingDirectMatch = getRelatedCoinsUsingDirectMatch(content)
                     
-
                     #Save sentiments into news collection (Collecting all news irrespective of relevance)
                     searchDict ={}
                     searchDict['url'] = url
@@ -242,7 +248,7 @@ with open(mapNewsToCoinsAndNames) as csv_file:
                     tempDict['relevance'] = 0
                     sentiment.update_one(searchDict, {"$set":tempDict}, upsert=True)
 
-
+                    
                     #Saving raw relevant news into raw and sentiment collection
                     if row[0].strip() in relatedCoinsUsingEntity:
                         searchDict ={}
@@ -263,8 +269,9 @@ with open(mapNewsToCoinsAndNames) as csv_file:
             all_articles = []
             tempDict = {}
             searchDict = {}
-            continue               
-
+            continue      
+                 
+redisRawNews.endRedis()
 client.close()
 
 
