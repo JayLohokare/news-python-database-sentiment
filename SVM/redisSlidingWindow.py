@@ -4,30 +4,32 @@ import redis
 class SlidingWindow(object):
     
     #Create Redis sliding window object, default size 100
-    def __init__(self, queueSize = 100, host="localhost", port=6379, newsQueueName="news"):
+    def __init__(self, debugOn = True, queueSize = 100, host="localhost", port=6379, newsQueueName="news"):
         self.db = redis.Redis(host=host, port=port)
         self.newsQueueSize = queueSize
         self.newsQueueName = newsQueueName
+        if debugOn == True or debugOn == 1:
+            self.debugOn = debugOn
     
     def endRedis(self):
         self.db.connection_pool.disconnect()
         
     def put(self, key, value):
         if not isinstance(value,dict):
-            print ("Value needs to be a dictionary " + key)
+            if self.debugOn:print ("Value needs to be a dictionary " + key)
             return False
         if not isinstance(key,str):
-            print ("Key needs to be a string " + key)
+            if self.debugOn:print ("Key needs to be a string " + key)
             return False
         self.db.hmset(key, value)
         return True
     
     def get(self, key):
         if not isinstance(key,str):
-            print ("Key needs to be a string " + key)
+            if self.debugOn:print ("Key needs to be a string " + key)
             return False
         elif not self.db.exists(key):
-            print ("Key doesnt exist " + key)
+            if self.debugOn:print ("Key doesnt exist " + key)
             return False
         
         val = self.db.hgetall(key)
@@ -35,11 +37,11 @@ class SlidingWindow(object):
     
     def delete(self, key):
         if key == self.newsQueueName:
-            print ("Call freeQueue() function instead")
+            if self.debugOn:print ("Call freeQueue() function instead")
             return False
         
         if not self.db.exists(key):
-            print ("Key doesnt exist " + key)
+            if self.debugOn:print ("Key doesnt exist " + key)
             return False
         
         self.db.delete(key)
@@ -78,7 +80,7 @@ class SlidingWindow(object):
     def pushQ(self, value): 
         #Dont push if object corresponding to key being pushed into queue exists
         if self.checkIfKeyExists(value):
-            print ("This key already exists")
+            if self.debugOn:print ("This key already exists")
             return False
         self.db.lpush(self.newsQueueName,value)
         if self.isQueueFull():
@@ -106,15 +108,19 @@ class SlidingWindow(object):
     #Insert into sliding window
     def insertObject(self, key, value):
         key = str(key)
-        print("Pushing key ", key)
+        if self.debugOn:print("Pushing key ", key)
+        
+        if self.checkIfKeyExists(key):
+            if self.debugOn:print ("Key already exists")
+            return False
         
         if key == self.newsQueueName:
-            print ("Cant use this key")
+            if self.debugOn:print ("Cant use this key")
             return False
         
         isQueueFull = self.pushQ(key)
         if not isQueueFull:
-            print ("Something went wrong")
+            if self.debugOn:print ("Something went wrong")
             return False
         
         if isQueueFull == 2:

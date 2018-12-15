@@ -59,7 +59,7 @@ sentiment = db.sentiments
 
 #Redis config
 redisQueueSize = 200
-redisRawNews = redisSlidingWindow.SlidingWindow(host = "daix-news-api.fcryea.ng.0001.use1.cache.amazonaws.com", port=6379, queueSize = redisQueueSize)
+redisRawNews = redisSlidingWindow.SlidingWindow(debugOn = debugOn, host = "daix-news-api.fcryea.ng.0001.use1.cache.amazonaws.com", port=6379, queueSize = redisQueueSize)
 
 namesList = []
 domainsList = []
